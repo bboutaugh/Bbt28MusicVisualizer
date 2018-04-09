@@ -18,17 +18,17 @@
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
-                <Menu fx:id="songMenu" mnemonicParsing="false" text="Edit">
+                <Menu fx:id="songMenu" mnemonicParsing="false" text="Songs">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Delete" />
                   </items>
                 </Menu>
-                <Menu fx:id="vizMenu" mnemonicParsing="false" text="Help">
+                <Menu fx:id="vizMenu" mnemonicParsing="false" text="Visualizers">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
-                  <Menu fx:id="colorMenu" mnemonicParsing="false" text="Unspecified Menu">
+                  <Menu fx:id="colorMenu" mnemonicParsing="false" text="Colors">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />
                     </items>
@@ -46,7 +46,7 @@
                   </AnchorPane>
                 <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="211.0" layoutY="105.0" />
+                        <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="231.0" layoutY="161.0" />
                      </children>
                   </AnchorPane>
               </items>
@@ -55,9 +55,9 @@
          <left>
             <VBox fx:id="leftVBox" prefHeight="615.0" prefWidth="84.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="playButton" mnemonicParsing="false" text="Button" />
-                  <Button fx:id="pauseButton" mnemonicParsing="false" text="Button" />
-                  <Button fx:id="stopButton" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="playButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Play" />
+                  <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Pause" />
+                  <Button fx:id="stopButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Stop" />
                </children>
             </VBox>
          </left>

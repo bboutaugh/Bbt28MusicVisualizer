@@ -5,13 +5,15 @@
  */
 package bbt28musicvisualizer;
 
+import javafx.scene.layout.AnchorPane;
+
 /**
  *
  * @author Brad
  */
 public interface Visualizer {
-    public void start();
+    public void start(Integer numBands, AnchorPane animationPane);
     public void end();
     public String getName();
-    public void update();
+    public void update(double timestamp, double duration, float[] magnitudes, float[] phases);
 }

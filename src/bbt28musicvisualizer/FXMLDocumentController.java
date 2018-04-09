@@ -14,11 +14,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 /**
@@ -47,15 +50,39 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML 
     private Menu fileMenu;
-    
     @FXML
-    private Menu songMenu;
+    private MenuItem openFileMenuItem;
+    @FXML
+    private MenuItem addFileMenuItem;
+    @FXML
+    private MenuItem removeFileMenuItem;
+    @FXML 
+    private MenuItem closeFileMenuItem;
+        
+    @FXML
+    private Menu songsMenu;
+    @FXML
+    private MenuItem songMenuItem1;
+    @FXML
+    private MenuItem songMenuItem2;
+    @FXML
+    private MenuItem songMenuItem3;
     
     @FXML
     private Menu vizMenu;
+    @FXML
+    private MenuItem diamondVizMenuItem;
+    @FXML
+    private MenuItem trumpetMenuItem;
     
     @FXML
-    private Menu colorMenu;
+    private Menu colorsMenu;
+    @FXML
+    private MenuItem blueColorMenuItem;
+    @FXML
+    private MenuItem redColorMenuItem;
+    @FXML
+    private MenuItem greenColorMenuItem;
     
     @FXML
     private VBox leftVBox;
@@ -102,7 +129,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label nameLabel;
     
-    
+    private Media media;
+    private MediaPlayer mediaPlayer;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
