@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
+    <children>
+      <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="800.0">
+         <top>
+            <MenuBar fx:id="menuBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu fx:id="songMenu" mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu fx:id="vizMenu" mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+                  <Menu fx:id="colorMenu" mnemonicParsing="false" text="Unspecified Menu">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <SplitPane fx:id="splitPane" dividerPositions="0.09154929577464789" orientation="VERTICAL" prefHeight="241.0" prefWidth="796.0" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane fx:id="sliderPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <Slider fx:id="songSlider" layoutX="6.0" layoutY="12.0" prefHeight="25.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="211.0" layoutY="105.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </center>
+         <left>
+            <VBox fx:id="leftVBox" prefHeight="615.0" prefWidth="84.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="playButton" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="pauseButton" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="stopButton" mnemonicParsing="false" text="Button" />
+               </children>
+            </VBox>
+         </left>
+         <right>
+            <VBox fx:id="rightVBox" prefHeight="615.0" prefWidth="87.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="songLabel" text="Label" />
+                  <Label fx:id="bandLabel" text="Label" />
+                  <Label fx:id="tempoLabel" text="Label" />
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <HBox fx:id="bottomHBox" prefHeight="55.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="vizTypeLabel" text="Label" />
+                  <Label fx:id="depthLabel" text="Label" />
+                  <Label fx:id="nameLabel" text="Label" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+    </children>
+</AnchorPane>
