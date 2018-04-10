@@ -89,10 +89,8 @@ public class FXMLDocumentController implements Initializable
     //Buttons
     @FXML
     private Button playButton;
-    
     @FXML
     private Button pauseButton;
-    
     @FXML
     private Button stopButton;
     
@@ -147,10 +145,24 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
-        // TODO
+       visualizers = new ArrayList<>();
+        visualizers.add(new Bbt28DiamondVisualizer());
+        visualizers.add(new Bbt28StarsVisualizer());
+
+        for (Visualizer visualizer : visualizers) {
+            MenuItem menuItem = new MenuItem(visualizer.getName());
+            menuItem.setUserData(visualizer);
+            menuItem.setOnAction((ActionEvent event) -> {
+                selectVisualizer(event);
+            });
+            vizMenu.getItems().add(menuItem);
+        }
+        currentVisualizer = visualizers.get(0);
+        vizTypeLabel.setText(currentVisualizer.getName());
+        
     }
     
-    
+    @FXML
     private void openMedia(File file) 
     {
         errorLabel.setText("");
@@ -159,7 +171,8 @@ public class FXMLDocumentController implements Initializable
             mediaPlayer.dispose();
         }
         
-        try {
+        try 
+        {
             media = new Media(file.toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
@@ -175,7 +188,9 @@ public class FXMLDocumentController implements Initializable
                 updateAction(timestamp, duration, magnitudes, phases);
             });
             mediaPlayer.setAutoPlay(true);
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             errorLabel.setText(ex.toString());
         }
     }
@@ -185,7 +200,7 @@ public class FXMLDocumentController implements Initializable
         {
         Duration duration = mediaPlayer.getTotalDuration();
         Duration ct = mediaPlayer.getCurrentTime();
-        currentVisualizer.start(numBands, animationPane);
+        //currentVisualizer.start(numBands, animationPane);
         songSlider.setMin(0);
         songSlider.setMax(duration.toMillis());
     }
@@ -204,7 +219,7 @@ public class FXMLDocumentController implements Initializable
         Duration ct = mediaPlayer.getCurrentTime();
         double ms = ct.toMillis();
         songSlider.setValue(ms);
-        currentVisualizer.update(timestamp, duration, magnitudes, phases);
+        //currentVisualizer.update(timestamp, duration, magnitudes, phases);
     }
     
     @FXML
@@ -218,6 +233,54 @@ public class FXMLDocumentController implements Initializable
             openMedia(file);
         }
     }
+    
+    @FXML
+    private void closeAction(Event event)
+    {
+        System.exit(0);
+    }
+    
+    @FXML
+    private void addSongAction(Event event)
+    {
+        Stage primaryStage = (Stage)animationPane.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(primaryStage);
+        if (file != null) 
+        {
+            openMedia(file);
+        }
+        MenuItem menuItem = new MenuItem(file.getName());
+        menuItem.setUserData(file);
+        menuItem.setOnAction((ActionEvent selectEvent) -> {
+                selectSong(selectEvent);
+            });
+        songsMenu.getItems().add(menuItem);
+    }
+    
+    private void selectSong(ActionEvent event)
+    {
+        MenuItem menuItem = (MenuItem)event.getSource();
+        File song = (File)menuItem.getUserData();
+        mediaPlayer.play();
+    }
+    
+        private void selectVisualizer(ActionEvent event) 
+        {
+        MenuItem menuItem = (MenuItem)event.getSource();
+        Visualizer visualizer = (Visualizer)menuItem.getUserData();
+        changeVisualizer(visualizer);
+        }
+        
+         private void changeVisualizer(Visualizer visualizer) 
+        {
+        if (currentVisualizer != null) {
+            currentVisualizer.end();
+        }
+        currentVisualizer = visualizer;
+        currentVisualizer.start(numBands, animationPane);
+        vizTypeLabel.setText(currentVisualizer.getName());
+        }
     
    //Button Actions
  @FXML
@@ -264,9 +327,18 @@ public class FXMLDocumentController implements Initializable
         {
             mediaPlayer.seek(new Duration(songSlider.getValue()));
             System.out.println(songSlider.getValue());
-            currentVisualizer.start(numBands, animationPane);
+            //currentVisualizer.start(numBands, animationPane);
             mediaPlayer.play();
         }  
+    }
+    
+    public boolean isRunning(){
+        if(mediaPlayer.getAudioSpectrumListener() != null){
+            if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+                return true; 
+            }
+        }
+        return false; 
     }
     
 }

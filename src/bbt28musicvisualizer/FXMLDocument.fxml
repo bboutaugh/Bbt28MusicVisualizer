@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
     <children>
       <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="800.0">
          <top>
@@ -15,10 +15,10 @@
               <menus>
                 <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#openMedia" text="Open" />
-                        <MenuItem fx:id="addFileMenuItem" mnemonicParsing="false" text="Add" />
+                    <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#openAction" text="Open" />
+                        <MenuItem fx:id="addFileMenuItem" mnemonicParsing="false" onAction="#addSongAction" text="Add" />
                         <MenuItem fx:id="removeFileMenuItem" mnemonicParsing="false" text="Remove" />
-                        <MenuItem fx:id="closeFileMenuItem" mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="closeFileMenuItem" mnemonicParsing="false" onAction="#closeAction" text="Close" />
                   </items>
                 </Menu>
                 <Menu fx:id="songsMenu" mnemonicParsing="false" text="Songs">
@@ -81,10 +81,10 @@
          <bottom>
             <HBox fx:id="bottomHBox" prefHeight="55.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="vizTypeLabel" text="Label" />
-                  <Label fx:id="depthLabel" text="Label" />
+                  <Label fx:id="vizTypeLabel" text="Visualizer" />
+                  <Label fx:id="depthLabel" text="Depth" />
                   <Label fx:id="nameLabel" text="Label" />
-                  <Label fx:id="errorLabel" text="Label" />
+                  <Label fx:id="errorLabel" />
                </children>
             </HBox>
          </bottom>

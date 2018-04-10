@@ -7,14 +7,20 @@ package bbt28musicvisualizer;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
+import static java.lang.Integer.min;
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author Brad
  */
-public class DiamondVisualizer implements Visualizer
+public class Bbt28DiamondVisualizer implements Visualizer
 {
-    private final String name = "Diamond Visualizer";
+    Bbt28DiamondVisualizer()
+    {    
+    }
+    
+    private final String name = "Bbt28 Diamond Visualizer";
     private Integer numBands;
     private AnchorPane animationPane;
     
@@ -24,7 +30,11 @@ public class DiamondVisualizer implements Visualizer
     private Double bandWidth = 0.0;
     private Double bandHeight = 0.0;
     
+    private final Double initHue = 100.0;
+    
     private Polygon[] diamonds;
+    
+    Polygon diamond = new Polygon();
 
     @Override
     public void start(Integer numBands, AnchorPane animationPane) {
@@ -35,8 +45,15 @@ public class DiamondVisualizer implements Visualizer
         height = animationPane.getHeight();
         width = animationPane.getWidth();
         diamonds = new Polygon[numBands];
+       
+        diamond.getPoints().addAll(new Double[]{
+                10.0,20.0,
+                10.0,40.0,
+                40.0,10.0,
+                20.0,10.0});
+        animationPane.getChildren().add(diamond);
         
-        for(int i=0;i<numBands;i++)
+        /*for(int i=0;i<numBands;i++)
         {
             Polygon diamond = new Polygon();
             diamond.getPoints().addAll(new Double[]{
@@ -47,7 +64,7 @@ public class DiamondVisualizer implements Visualizer
             });
             animationPane.getChildren().add(diamond);
             diamond = diamonds[i];
-        }
+        }*/
     }
 
     @Override
@@ -71,10 +88,20 @@ public class DiamondVisualizer implements Visualizer
     @Override
     public void update(double timestamp, double duration, float[] magnitudes, float[] phases) 
     {
-        if(diamonds == null)
+        if(diamond == null)
         {
             return;
         }
+        
+       /* Integer num = min(diamonds.length,magnitudes.length);
+        
+       
+        for(int i = 0;i<num;i++)
+        {
+        }  */
+       diamond.setFill(Color.hsb(initHue - (5.0), 1.0, 1.0, 1.0)); 
+       diamond.setScaleX(50.0);
+       diamond.setScaleY(50.0);
         
     }
 
