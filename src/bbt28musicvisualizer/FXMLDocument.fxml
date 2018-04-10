@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
     <children>
       <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="800.0">
          <top>
@@ -15,22 +15,30 @@
               <menus>
                 <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#openMedia" text="Open" />
+                        <MenuItem fx:id="addFileMenuItem" mnemonicParsing="false" text="Add" />
+                        <MenuItem fx:id="removeFileMenuItem" mnemonicParsing="false" text="Remove" />
+                        <MenuItem fx:id="closeFileMenuItem" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
-                <Menu fx:id="songMenu" mnemonicParsing="false" text="Songs">
+                <Menu fx:id="songsMenu" mnemonicParsing="false" text="Songs">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem fx:id="songMenuItem1" mnemonicParsing="false" text="Song 1" />
+                        <MenuItem fx:id="songMenuItem2" mnemonicParsing="false" text="Song 2" />
+                        <MenuItem fx:id="songMenuItem3" mnemonicParsing="false" text="Song 3" />
                   </items>
                 </Menu>
                 <Menu fx:id="vizMenu" mnemonicParsing="false" text="Visualizers">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="diamondVizMenuItem" mnemonicParsing="false" text="Diamond Visualizer" />
+                        <MenuItem fx:id="starsVizMenuItem" mnemonicParsing="false" text="Stars Visualizer" />
                   </items>
                 </Menu>
-                  <Menu fx:id="colorMenu" mnemonicParsing="false" text="Colors">
+                  <Menu fx:id="colorsMenu" mnemonicParsing="false" text="Colors">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem fx:id="blueColorMenuItem" mnemonicParsing="false" text="Blue" />
+                        <MenuItem fx:id="redColorMenuItem" mnemonicParsing="false" text="Red" />
+                        <MenuItem fx:id="greenColorMenuItem" mnemonicParsing="false" text="Green" />
                     </items>
                   </Menu>
               </menus>
@@ -41,7 +49,7 @@
               <items>
                 <AnchorPane fx:id="sliderPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <Slider fx:id="songSlider" layoutX="6.0" layoutY="12.0" prefHeight="25.0" prefWidth="600.0" />
+                        <Slider fx:id="songSlider" layoutX="6.0" layoutY="12.0" onMousePressed="#songSliderMousePressed" onMouseReleased="#songSliderMouseReleased" prefHeight="25.0" prefWidth="600.0" />
                      </children>
                   </AnchorPane>
                 <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -55,9 +63,9 @@
          <left>
             <VBox fx:id="leftVBox" prefHeight="615.0" prefWidth="84.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="playButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Play" />
-                  <Button fx:id="pauseButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Pause" />
-                  <Button fx:id="stopButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Stop" />
+                  <Button fx:id="playButton" mnemonicParsing="false" onAction="#playAction" prefHeight="25.0" prefWidth="61.0" text="Play" />
+                  <Button fx:id="pauseButton" mnemonicParsing="false" onAction="#pauseAction" prefHeight="25.0" prefWidth="61.0" text="Pause" />
+                  <Button fx:id="stopButton" mnemonicParsing="false" onAction="#stopAction" prefHeight="25.0" prefWidth="61.0" text="Stop" />
                </children>
             </VBox>
          </left>
@@ -76,6 +84,7 @@
                   <Label fx:id="vizTypeLabel" text="Label" />
                   <Label fx:id="depthLabel" text="Label" />
                   <Label fx:id="nameLabel" text="Label" />
+                  <Label fx:id="errorLabel" text="Label" />
                </children>
             </HBox>
          </bottom>

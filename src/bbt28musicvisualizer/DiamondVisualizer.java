@@ -40,10 +40,10 @@ public class DiamondVisualizer implements Visualizer
         {
             Polygon diamond = new Polygon();
             diamond.getPoints().addAll(new Double[]{
-                10.0,15.0,
-                10.0,5.0,
-                15.0,10.0,
-                5.0,10.0
+                10.0,20.0,
+                10.0,40.0,
+                40.0,10.0,
+                20.0,10.0
             });
             animationPane.getChildren().add(diamond);
             diamond = diamonds[i];
@@ -52,7 +52,14 @@ public class DiamondVisualizer implements Visualizer
 
     @Override
     public void end() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(diamonds != null)
+       {
+           for(Polygon diamond: diamonds)
+           {
+              animationPane.getChildren().remove(diamond); 
+           }
+           diamonds = null;
+       }
     }
 
     @Override
@@ -62,8 +69,13 @@ public class DiamondVisualizer implements Visualizer
     }
 
     @Override
-    public void update(double timestamp, double duration, float[] magnitudes, float[] phases) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(double timestamp, double duration, float[] magnitudes, float[] phases) 
+    {
+        if(diamonds == null)
+        {
+            return;
+        }
+        
     }
 
     

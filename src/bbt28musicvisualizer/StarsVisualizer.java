@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Brad
  */
-public class TrumpetVisualizer implements Visualizer
+public class StarsVisualizer implements Visualizer
 {
 
     @Override

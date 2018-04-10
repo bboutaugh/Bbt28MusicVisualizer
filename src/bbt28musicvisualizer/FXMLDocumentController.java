@@ -5,9 +5,12 @@
  */
 package bbt28musicvisualizer;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -23,22 +27,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
  * @author Brad
  */
-public class FXMLDocumentController implements Initializable {
-    
-    @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+public class FXMLDocumentController implements Initializable 
+{
     @FXML
     private AnchorPane root;
     
@@ -58,7 +56,8 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem removeFileMenuItem;
     @FXML 
     private MenuItem closeFileMenuItem;
-        
+    
+    //Menu UI Elements
     @FXML
     private Menu songsMenu;
     @FXML
@@ -73,7 +72,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private MenuItem diamondVizMenuItem;
     @FXML
-    private MenuItem trumpetMenuItem;
+    private MenuItem starsVizMenuItem;
     
     @FXML
     private Menu colorsMenu;
@@ -87,6 +86,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private VBox leftVBox;
     
+    //Buttons
     @FXML
     private Button playButton;
     
@@ -98,6 +98,9 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private SplitPane splitPane;
+    
+    @FXML
+    private Slider songSlider;
     
     @FXML
     private AnchorPane animationPane;
@@ -129,12 +132,141 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label nameLabel;
     
+    @FXML
+    private Label errorLabel;
+    
     private Media media;
     private MediaPlayer mediaPlayer;
     
+    private Integer numBands = 50;
+    private final Double updateInterval = 0.05;
+    
+    private ArrayList<Visualizer> visualizers;
+    private Visualizer currentVisualizer;
+    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) 
+    {
         // TODO
-    }    
+    }
+    
+    
+    private void openMedia(File file) 
+    {
+        errorLabel.setText("");
+        
+        if (mediaPlayer != null) {
+            mediaPlayer.dispose();
+        }
+        
+        try {
+            media = new Media(file.toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mediaPlayer);
+            mediaPlayer.setOnReady(() -> {
+                readyAction();
+            });
+            mediaPlayer.setOnEndOfMedia(() -> {
+                endOfMediaAction();
+            });
+            mediaPlayer.setAudioSpectrumNumBands(numBands);
+            mediaPlayer.setAudioSpectrumInterval(updateInterval);
+            mediaPlayer.setAudioSpectrumListener((double timestamp, double duration, float[] magnitudes, float[] phases) -> {
+                updateAction(timestamp, duration, magnitudes, phases);
+            });
+            mediaPlayer.setAutoPlay(true);
+        } catch (Exception ex) {
+            errorLabel.setText(ex.toString());
+        }
+    }
+    
+    @FXML
+        private void readyAction() 
+        {
+        Duration duration = mediaPlayer.getTotalDuration();
+        Duration ct = mediaPlayer.getCurrentTime();
+        currentVisualizer.start(numBands, animationPane);
+        songSlider.setMin(0);
+        songSlider.setMax(duration.toMillis());
+    }
+    
+        @FXML
+    private void endOfMediaAction() 
+    {
+        mediaPlayer.stop();
+        mediaPlayer.seek(Duration.ZERO);
+        songSlider.setValue(0);
+    }
+    
+    @FXML
+    private void updateAction(double timestamp, double duration, float[] magnitudes, float[] phases) 
+    {
+        Duration ct = mediaPlayer.getCurrentTime();
+        double ms = ct.toMillis();
+        songSlider.setValue(ms);
+        currentVisualizer.update(timestamp, duration, magnitudes, phases);
+    }
+    
+    @FXML
+    private void openAction(Event event) 
+    {
+        Stage primaryStage = (Stage)animationPane.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(primaryStage);
+        if (file != null) 
+        {
+            openMedia(file);
+        }
+    }
+    
+   //Button Actions
+ @FXML
+ private void playAction(ActionEvent event)
+ {
+     if(mediaPlayer != null)
+     {
+         mediaPlayer.play();
+     }
+ }
+ 
+ @FXML
+ private void pauseAction(ActionEvent event)
+ {
+     if(mediaPlayer != null)
+     {
+         mediaPlayer.pause();
+     }
+ }
+ 
+ @FXML
+ private void stopAction(ActionEvent event)
+ {
+     if(mediaPlayer != null)
+     {
+         mediaPlayer.stop();
+     }
+ }
+ 
+ //Slider Activity
+    @FXML
+    private void songSliderMousePressed(Event event) 
+    {
+        if (mediaPlayer != null) 
+        {
+           mediaPlayer.pause(); 
+        }  
+    }
+    
+    @FXML
+    private void songSliderMouseReleased(Event event) 
+    {
+        if (mediaPlayer != null) 
+        {
+            mediaPlayer.seek(new Duration(songSlider.getValue()));
+            System.out.println(songSlider.getValue());
+            currentVisualizer.start(numBands, animationPane);
+            mediaPlayer.play();
+        }  
+    }
     
 }
