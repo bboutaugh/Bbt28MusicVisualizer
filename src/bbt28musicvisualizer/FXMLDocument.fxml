@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.media.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bbt28musicvisualizer.FXMLDocumentController">
     <children>
       <BorderPane fx:id="borderPane" prefHeight="700.0" prefWidth="800.0">
          <top>
@@ -55,6 +56,11 @@
                 <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
                         <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="231.0" layoutY="161.0" />
+                        <ImageView fx:id="satelliteImage" fitHeight="150.0" fitWidth="174.0" layoutX="227.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@Bbt28SatelliteImage.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
               </items>

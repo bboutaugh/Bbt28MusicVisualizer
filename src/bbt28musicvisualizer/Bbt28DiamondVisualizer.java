@@ -30,7 +30,7 @@ public class Bbt28DiamondVisualizer implements Visualizer
     private Double bandWidth = 0.0;
     private Double bandHeight = 0.0;
     
-    private final Double initHue = 100.0;
+    private final Double initHue = 50.0;
     
     private Polygon[] diamonds;
     

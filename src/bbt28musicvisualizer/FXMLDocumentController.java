@@ -219,7 +219,7 @@ public class FXMLDocumentController implements Initializable
         Duration ct = mediaPlayer.getCurrentTime();
         double ms = ct.toMillis();
         songSlider.setValue(ms);
-        //currentVisualizer.update(timestamp, duration, magnitudes, phases);
+        currentVisualizer.update(timestamp, duration, magnitudes, phases);
     }
     
     @FXML

@@ -5,8 +5,12 @@
  */
 package bbt28musicvisualizer;
 
+import static java.lang.Integer.min;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -22,6 +26,7 @@ public class Bbt28StarsVisualizer implements Visualizer
 
    
    private final String name = "Bbt28 Stars Visualizer";
+   
     private Integer numBands;
     private AnchorPane animationPane;
     
@@ -30,53 +35,49 @@ public class Bbt28StarsVisualizer implements Visualizer
     
     private Double bandWidth = 0.0;
     private Double bandHeight = 0.0;
+    private final Double circleRadiusMin = 5.0;
     
-    private final Double initHue = 100.0;
+    private final Double initHue = 25.0;
     
-    private Polygon[] diamonds;
+    private Circle[] stars;
+   // Image satelliteImage = new Image("C:\\Users\\Brad\\Documents\\NetBeansProjects\\Bbt28MusicVisualizer\\src\\bbt28musicvisualizer\\Bbt28SatelliteImage.png");
     
-    Polygon diamond = new Polygon();
+    Circle star = new Circle();
 
     @Override
-    public void start(Integer numBands, AnchorPane animationPane) {
+    public void start(Integer numBands, AnchorPane animationPane) 
+    {
         end();
         this.numBands = numBands;
         this.animationPane = animationPane;
         
+        animationPane.setStyle("-fx-background-color: BLACK");
+        //animationPane.getChildren().add(new ImageView(satelliteImage));
         height = animationPane.getHeight();
         width = animationPane.getWidth();
-        diamonds = new Polygon[numBands];
-       
-        diamond.getPoints().addAll(new Double[]{
-                10.0,20.0,
-                10.0,40.0,
-                40.0,10.0,
-                20.0,10.0});
-        animationPane.getChildren().add(diamond);
+        stars = new Circle[numBands];
         
-        /*for(int i=0;i<numBands;i++)
+        for(int i=0;i<numBands;i++)
         {
-            Polygon diamond = new Polygon();
-            diamond.getPoints().addAll(new Double[]{
-                10.0,20.0,
-                10.0,40.0,
-                40.0,10.0,
-                20.0,10.0
-            });
-            animationPane.getChildren().add(diamond);
-            diamond = diamonds[i];
-        }*/
+            Circle star = new Circle();
+            star.setRadius(2.0f);
+            star.setFill(Color.WHITE);
+            star.setCenterX(Math.random()*600);
+            star.setCenterY(Math.random()*600);
+            animationPane.getChildren().add(star);
+            star = stars[i];
+        }
     }
 
     @Override
     public void end() {
-       if(diamonds != null)
+       if(stars != null)
        {
-           for(Polygon diamond: diamonds)
+           for(Circle star: stars)
            {
-              animationPane.getChildren().remove(diamond); 
+              animationPane.getChildren().remove(star); 
            }
-           diamonds = null;
+           stars = null;
        }
     }
 
@@ -89,20 +90,20 @@ public class Bbt28StarsVisualizer implements Visualizer
     @Override
     public void update(double timestamp, double duration, float[] magnitudes, float[] phases) 
     {
-        if(diamond == null)
+        if(star == null)
         {
             return;
         }
         
-       /* Integer num = min(diamonds.length,magnitudes.length);
+       Integer num = min(stars.length,magnitudes.length);
         
        
         for(int i = 0;i<num;i++)
         {
-        }  */
-       diamond.setFill(Color.hsb(initHue - (5.0), 1.0, 1.0, 1.0)); 
-       diamond.setScaleX(10.0);
-       diamond.setScaleY(5.0);
+       //stars[i].setFill(Color.BLUE); 
+       stars[i].setRadius((60.0 + magnitudes[i]/60)*circleRadiusMin);  
+        }  
+  
         
     }
 
