@@ -100,7 +100,7 @@ public class Bbt28StarsVisualizer implements Visualizer
        
         for(int i = 0;i<num;i++)
         {
-       //stars[i].setFill(Color.BLUE); 
+       stars[i].setFill(Color.BLUE); 
        stars[i].setRadius((60.0 + magnitudes[i]/60)*circleRadiusMin);  
         }  
   

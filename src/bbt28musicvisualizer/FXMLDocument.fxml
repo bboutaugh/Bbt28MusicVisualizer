@@ -18,7 +18,7 @@
                   <items>
                     <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#openAction" text="Open" />
                         <MenuItem fx:id="addFileMenuItem" mnemonicParsing="false" onAction="#addSongAction" text="Add" />
-                        <MenuItem fx:id="removeFileMenuItem" mnemonicParsing="false" text="Remove" />
+                        <MenuItem fx:id="removeFileMenuItem" mnemonicParsing="false" onAction="#removeAction" text="Remove" />
                         <MenuItem fx:id="closeFileMenuItem" mnemonicParsing="false" onAction="#closeAction" text="Close" />
                   </items>
                 </Menu>
@@ -29,12 +29,7 @@
                         <MenuItem fx:id="songMenuItem3" mnemonicParsing="false" text="Song 3" />
                   </items>
                 </Menu>
-                <Menu fx:id="vizMenu" mnemonicParsing="false" text="Visualizers">
-                  <items>
-                    <MenuItem fx:id="diamondVizMenuItem" mnemonicParsing="false" text="Diamond Visualizer" />
-                        <MenuItem fx:id="starsVizMenuItem" mnemonicParsing="false" text="Stars Visualizer" />
-                  </items>
-                </Menu>
+                <Menu fx:id="vizMenu" mnemonicParsing="false" text="Visualizers" />
                   <Menu fx:id="colorsMenu" mnemonicParsing="false" text="Colors">
                     <items>
                       <MenuItem fx:id="blueColorMenuItem" mnemonicParsing="false" text="Blue" />

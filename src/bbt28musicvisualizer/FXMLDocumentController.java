@@ -11,15 +11,18 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -133,6 +136,9 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private Label errorLabel;
     
+    @FXML
+    private ImageView satelliteImage;
+    
     private Media media;
     private MediaPlayer mediaPlayer;
     
@@ -187,7 +193,7 @@ public class FXMLDocumentController implements Initializable
             mediaPlayer.setAudioSpectrumListener((double timestamp, double duration, float[] magnitudes, float[] phases) -> {
                 updateAction(timestamp, duration, magnitudes, phases);
             });
-            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setAutoPlay(false);
         } 
         catch (Exception ex) 
         {
@@ -200,7 +206,7 @@ public class FXMLDocumentController implements Initializable
         {
         Duration duration = mediaPlayer.getTotalDuration();
         Duration ct = mediaPlayer.getCurrentTime();
-        //currentVisualizer.start(numBands, animationPane);
+        currentVisualizer.start(numBands, animationPane);
         songSlider.setMin(0);
         songSlider.setMax(duration.toMillis());
     }
@@ -238,6 +244,22 @@ public class FXMLDocumentController implements Initializable
     private void closeAction(Event event)
     {
         System.exit(0);
+    }
+    
+    @FXML
+    private void removeAction(Event event)
+    {
+        int songSelection = -1;
+        ArrayList<Object> songSelections = new ArrayList<>();
+        for(int i=0;i<songsMenu.getItems().size();i++)
+        {
+            songSelections.add(songsMenu.getItems().get(i).getText());
+        }
+       ChoiceDialog<Object> selectionRemoval 
+               = new ChoiceDialog<>("Songs",songSelections);
+       selectionRemoval.setTitle("Remove Song");
+       selectionRemoval.setHeaderText("Update Playlist");
+       selectionRemoval.showAndWait();
     }
     
     @FXML

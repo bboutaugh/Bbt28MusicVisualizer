@@ -47,11 +47,14 @@ public class Bbt28DiamondVisualizer implements Visualizer
         diamonds = new Polygon[numBands];
        
         diamond.getPoints().addAll(new Double[]{
-                10.0,20.0,
-                10.0,40.0,
-                40.0,10.0,
-                20.0,10.0});
+                150.0,0.0,
+                150.0,300.0,
+                0.0,150.0,
+                300.0,150.0});
+        diamond.setLayoutX(width/2);
+        diamond.setLayoutY(width/2);
         animationPane.getChildren().add(diamond);
+        
         
         /*for(int i=0;i<numBands;i++)
         {
@@ -93,15 +96,16 @@ public class Bbt28DiamondVisualizer implements Visualizer
             return;
         }
         
-       /* Integer num = min(diamonds.length,magnitudes.length);
+       Integer num = min(diamonds.length,magnitudes.length);
         
        
         for(int i = 0;i<num;i++)
         {
-        }  */
-       diamond.setFill(Color.hsb(initHue - (5.0), 1.0, 1.0, 1.0)); 
-       diamond.setScaleX(50.0);
-       diamond.setScaleY(50.0);
+       diamond.setFill(Color.hsb(initHue - (magnitudes[i] * -6.0), 1.0, 1.0, 1.0)); 
+       diamond.setScaleX((60.0 + magnitudes[i])/60.0);
+       diamond.setScaleY((60.0 + magnitudes[i])/60.0);   
+        }  
+    
         
     }
 
