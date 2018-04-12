@@ -20,8 +20,9 @@ import javafx.scene.shape.Polygon;
 public class Bbt28StarsVisualizer implements Visualizer
 {
 
-    public Bbt28StarsVisualizer() 
+    public Bbt28StarsVisualizer(ImageView imageView) 
     {
+        //imageView.setVisible(true);
     }
 
    
@@ -30,23 +31,25 @@ public class Bbt28StarsVisualizer implements Visualizer
     private Integer numBands;
     private AnchorPane animationPane;
     
+    private final Double bandHeightPercentage = 1.3;
+    
     private Double width = 0.0;
     private Double height = 0.0;
     
     private Double bandWidth = 0.0;
     private Double bandHeight = 0.0;
-    private final Double circleRadiusMin = 5.0;
+    private Double halfBandHeight = 0.0;
+    private final Double circleRadiusMin = 10.0;
     
     private final Double initHue = 25.0;
     
     private Circle[] stars;
-   // Image satelliteImage = new Image("C:\\Users\\Brad\\Documents\\NetBeansProjects\\Bbt28MusicVisualizer\\src\\bbt28musicvisualizer\\Bbt28SatelliteImage.png");
     
-    Circle star = new Circle();
-
     @Override
     public void start(Integer numBands, AnchorPane animationPane) 
     {
+        
+      
         end();
         this.numBands = numBands;
         this.animationPane = animationPane;
@@ -55,6 +58,10 @@ public class Bbt28StarsVisualizer implements Visualizer
         //animationPane.getChildren().add(new ImageView(satelliteImage));
         height = animationPane.getHeight();
         width = animationPane.getWidth();
+        
+        bandWidth = width / numBands;
+        bandHeight = height * bandHeightPercentage;
+        halfBandHeight = bandHeight / 2;
         stars = new Circle[numBands];
         
         for(int i=0;i<numBands;i++)
@@ -65,7 +72,7 @@ public class Bbt28StarsVisualizer implements Visualizer
             star.setCenterX(Math.random()*600);
             star.setCenterY(Math.random()*600);
             animationPane.getChildren().add(star);
-            star = stars[i];
+            stars[i] = star;
         }
     }
 
@@ -90,7 +97,7 @@ public class Bbt28StarsVisualizer implements Visualizer
     @Override
     public void update(double timestamp, double duration, float[] magnitudes, float[] phases) 
     {
-        if(star == null)
+        if(stars == null)
         {
             return;
         }
@@ -100,11 +107,20 @@ public class Bbt28StarsVisualizer implements Visualizer
        
         for(int i = 0;i<num;i++)
         {
-       stars[i].setFill(Color.BLUE); 
-       stars[i].setRadius((60.0 + magnitudes[i]/60)*circleRadiusMin);  
-        }  
-  
-        
+            
+             if(magnitudes == null)
+            {
+                continue;
+            }
+      // stars[i].setFill(Color.BLUE); 
+       //stars[i].setRadius((60.0 + magnitudes[i]/60)*circleRadiusMin);  
+       System.out.println(((40.0 + magnitudes[i])/40.0) * (halfBandHeight + circleRadiusMin));
+       stars[i].setRadius( Math.abs((60.0 + magnitudes[i])/5.0));
+       
+        }   
     }
-
+void makeVisible(ImageView imageView)
+{
+    imageView.setVisible(true);
+}
 }

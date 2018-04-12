@@ -142,7 +142,7 @@ public class FXMLDocumentController implements Initializable
     private Media media;
     private MediaPlayer mediaPlayer;
     
-    private Integer numBands = 50;
+    private Integer numBands = 40;
     private final Double updateInterval = 0.05;
     
     private ArrayList<Visualizer> visualizers;
@@ -152,8 +152,9 @@ public class FXMLDocumentController implements Initializable
     public void initialize(URL url, ResourceBundle rb) 
     {
        visualizers = new ArrayList<>();
-        visualizers.add(new Bbt28DiamondVisualizer());
-        visualizers.add(new Bbt28StarsVisualizer());
+        //visualizers.add(new Bbt28DiamondVisualizer());
+        visualizers.add(new Bbt28StarsVisualizer(satelliteImage));
+        visualizers.add(new EllipseVisualizer());
 
         for (Visualizer visualizer : visualizers) {
             MenuItem menuItem = new MenuItem(visualizer.getName());
@@ -211,7 +212,7 @@ public class FXMLDocumentController implements Initializable
         songSlider.setMax(duration.toMillis());
     }
     
-        @FXML
+    @FXML
     private void endOfMediaAction() 
     {
         mediaPlayer.stop();
@@ -244,6 +245,36 @@ public class FXMLDocumentController implements Initializable
     private void closeAction(Event event)
     {
         System.exit(0);
+    }
+    
+    @FXML
+    private void playSong1(Event event)
+    {
+        File songFile1 = new File("C:\\Users\\Brad\\Documents\\NetBeansProjects\\Bbt28MusicVisualizer\\src\\bbt28musicvisualizer\\bensound-jazzyfrenchy.mp3");
+        if (songFile1 != null) 
+        {
+            openMedia(songFile1);
+        }
+    }
+    
+    @FXML
+    private void playSong2(Event event)
+    {
+        File songFile1 = new File("C:\\Users\\Brad\\Documents\\NetBeansProjects\\Bbt28MusicVisualizer\\src\\bbt28musicvisualizer\\bensound-psychedelic_1.mp3");
+        if (songFile1 != null) 
+        {
+            openMedia(songFile1);
+        }
+    }
+    
+    @FXML
+    private void playSong3(Event event)
+    {
+        File songFile1 = new File("C:\\Users\\Brad\\Documents\\NetBeansProjects\\Bbt28MusicVisualizer\\src\\bbt28musicvisualizer\\bensound-ukulele.mp3");
+        if (songFile1 != null) 
+        {
+            openMedia(songFile1);
+        }
     }
     
     @FXML
@@ -292,6 +323,10 @@ public class FXMLDocumentController implements Initializable
         MenuItem menuItem = (MenuItem)event.getSource();
         Visualizer visualizer = (Visualizer)menuItem.getUserData();
         changeVisualizer(visualizer);
+       
+        Bbt28StarsVisualizer starsVisualizer = new Bbt28StarsVisualizer(satelliteImage);
+        starsVisualizer.makeVisible(satelliteImage);
+        
         }
         
          private void changeVisualizer(Visualizer visualizer) 
@@ -303,7 +338,8 @@ public class FXMLDocumentController implements Initializable
         currentVisualizer.start(numBands, animationPane);
         vizTypeLabel.setText(currentVisualizer.getName());
         }
-    
+         
+
    //Button Actions
  @FXML
  private void playAction(ActionEvent event)

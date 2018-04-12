@@ -24,9 +24,9 @@
                 </Menu>
                 <Menu fx:id="songsMenu" mnemonicParsing="false" text="Songs">
                   <items>
-                    <MenuItem fx:id="songMenuItem1" mnemonicParsing="false" text="Song 1" />
-                        <MenuItem fx:id="songMenuItem2" mnemonicParsing="false" text="Song 2" />
-                        <MenuItem fx:id="songMenuItem3" mnemonicParsing="false" text="Song 3" />
+                    <MenuItem fx:id="songMenuItem1" mnemonicParsing="false" onAction="#playSong1" text="Song 1" />
+                        <MenuItem fx:id="songMenuItem2" mnemonicParsing="false" onAction="#playSong2" text="Song 2" />
+                        <MenuItem fx:id="songMenuItem3" mnemonicParsing="false" onAction="#playSong3" text="Song 3" />
                   </items>
                 </Menu>
                 <Menu fx:id="vizMenu" mnemonicParsing="false" text="Visualizers" />
@@ -48,9 +48,9 @@
                         <Slider fx:id="songSlider" layoutX="6.0" layoutY="12.0" onMousePressed="#songSliderMousePressed" onMouseReleased="#songSliderMouseReleased" prefHeight="25.0" prefWidth="600.0" />
                      </children>
                   </AnchorPane>
-                <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane fx:id="animationPane" minHeight="0.0" minWidth="0.0" prefHeight="411.0" prefWidth="495.0">
                      <children>
-                        <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="231.0" layoutY="161.0" />
+                        <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" layoutX="427.0" layoutY="27.0" />
                         <ImageView fx:id="satelliteImage" fitHeight="150.0" fitWidth="174.0" layoutX="227.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@Bbt28SatelliteImage.png" />

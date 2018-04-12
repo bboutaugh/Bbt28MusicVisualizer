@@ -101,6 +101,10 @@ public class Bbt28DiamondVisualizer implements Visualizer
        
         for(int i = 0;i<num;i++)
         {
+            if(magnitudes == null)
+            {
+                continue;
+            }
        diamond.setFill(Color.hsb(initHue - (magnitudes[i] * -6.0), 1.0, 1.0, 1.0)); 
        diamond.setScaleX((60.0 + magnitudes[i])/60.0);
        diamond.setScaleY((60.0 + magnitudes[i])/60.0);   
