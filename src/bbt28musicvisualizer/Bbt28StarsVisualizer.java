@@ -86,7 +86,7 @@ public class Bbt28StarsVisualizer implements Visualizer
            }
            stars = null;
        }
-    }
+    }//Change
 
     @Override
     public String getName() 
